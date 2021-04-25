@@ -22,7 +22,7 @@ const ProviderSchema = new mongoose.Schema({
     ref: 'ParticularsQuantity',
   },
   Contact: {
-    type: String
+    type: String,
     //required: true,
   },
   email: {
@@ -32,7 +32,7 @@ const ProviderSchema = new mongoose.Schema({
   votes: {
     type: Number,
     default: 0,
-  }
+  },
   createdAt: {
     type: Date,
     default: Date.now,
