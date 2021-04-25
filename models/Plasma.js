@@ -17,15 +17,11 @@ const PlasmaSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Particulars: {
-    type: [String],
-    //required: true,
-  },
   Contact: {
     type: String,
     required: true,
   },
-  email: {
+  Email: {
     type: String,
   },
   PerWeek: {
@@ -37,5 +33,6 @@ const PlasmaSchema = new mongoose.Schema({
     default: Date.now,
   }
 })
-//keep a name for this operation
-module.exports = mongoose.model('User', UserSchema)
+
+
+module.exports = mongoose.model('Plasma', PlasmaSchema)
