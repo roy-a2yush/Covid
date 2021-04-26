@@ -3,7 +3,7 @@ const PlasmaDonor = require('../models/Plasma')
 exports.upload = async function(req, res, newPlasmaDonor) {
     try {
         const uploadResult = await newPlasmaDonor.save()
-        res.json(uploadResult)
+        res.status(201).json(uploadResult)
     } catch (err) {
         res.status(400).send(err)
     }
