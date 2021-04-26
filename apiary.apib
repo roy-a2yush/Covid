@@ -3,78 +3,62 @@ HOST: https://polls.apiblueprint.org/
 
 # covidSupport
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+CovidSupport is a simple API that can be used to add Providers and Plasma donors details and retrieve them based on certain filter also have a chat support
 
-## Questions Collection [/questions]
+## PlasmaDonors [/plasma]
 
-### List All Questions [GET]
+### List All Plasma Donors [GET]
+
+This endpoint can be either called directly which will make it list all plasma donors or /id could be appended ion the url which will return the donor with that id.
+"name", "state", "pincode", "district" can be added in the request body which will filter the results accordingly
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "_id": "60863562dc7788cacc4af270",
+                "Name": "Aayush",
+                "State": "WB",
+                "District": "Jalpaiguri",
+                "Pincode": "735101",
+                "Contact": "9931837670",
+                "Email": "roy.a2yush@gmail.com",
+                "PerWeek": 1,
+                "createdAt": "2021-04-26T03:37:06.181Z",
+                "__v": 0
             }
         ]
 
-### Create a New Question [POST]
+### Create a new Plasma Donor [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+People who wanmt to donate their plasma and have all the criterias for being a plasma donor can regiter themselves as a plasma donor 
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "Name": "Aayush",
+            "State": "WB",
+            "District": "Jalpaiguri",
+            "Pincode": "735101",
+            "Contact": "9931837670",
+            "Email": "roy.a2yush@gmail.com",
+            "PerWeek": 1
         }
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/2
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "_id": "60863562dc7788cacc4af270",
+                "Name": "Aayush",
+                "State": "WB",
+                "District": "Jalpaiguri",
+                "Pincode": "735101",
+                "Contact": "9931837670",
+                "Email": "roy.a2yush@gmail.com",
+                "PerWeek": 1,
+                "createdAt": "2021-04-26T03:37:06.181Z",
+                "__v": 0
             }
