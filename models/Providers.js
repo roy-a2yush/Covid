@@ -14,7 +14,7 @@ const ProviderSchema = new mongoose.Schema({
     required: true,
   },
   Pincode: {
-    type: String,
+    type: Number,
     required: true,
   },
   Particulars: {
@@ -22,12 +22,16 @@ const ProviderSchema = new mongoose.Schema({
     ref: 'ParticularsQuantity',
   },
   Contact: {
-    type: String
+    type: String,
     //required: true,
   },
   email: {
     type: Number,
     default: 0
+  },
+  votes: {
+    type: Number,
+    default: 0,
   },
   createdAt: {
     type: Date,
