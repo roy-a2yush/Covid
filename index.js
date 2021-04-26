@@ -8,7 +8,7 @@ const app = express()
 
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 6000
 
 // All the base routes here
 app.use('/provider', require('./routes/provider'))

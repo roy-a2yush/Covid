@@ -2,6 +2,7 @@ const fs = require('fs')
 
 const PlasmaDonor = require('../models/Plasma')
 const plasmaToDB = require('../helpers/plasma.js')
+const plasmaHelper = require('../managers/plasma')
 
 exports.createPlasmaDonor = async (req, res, next) => {
 
@@ -20,4 +21,15 @@ exports.createPlasmaDonor = async (req, res, next) => {
 
     plasmaToDB.upload(req, res, newPlasmaDonor)
 
+}
+
+exports.findAllPlasmaDonors = async (req, res, next) => {
+    var state = req.body.state
+    var id = req.params.id
+    var pincode = req.body.pincode
+    var district = req.body.district
+    var name = req.body.name
+    
+    var findParameter = plasmaHelper.assembleFindParameter(state, id, pincode, district, name)
+    plasmaToDB.find(req, res, findParameter)
 }
