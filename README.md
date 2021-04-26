@@ -9,7 +9,5 @@ npm i
 ```
 MONGO_URI=<url>
 ```
-- API docs:
-```
+- API docs: 
 https://covidsupport.docs.apiary.io/#
-```
