@@ -1,5 +1,5 @@
+const { json } = require('express');
 const express = require('express')
-const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 
 const connectDB = require('./config/db')
@@ -14,6 +14,9 @@ const PORT = process.env.PORT || 6000
 app.use('/provider', require('./routes/provider'))
 
 app.use('/plasma', require('./routes/plasma'))
+
+//email route
+app.use('/email', require('./routes/email'))
 
 connectDB()
 
