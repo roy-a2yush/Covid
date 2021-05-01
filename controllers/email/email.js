@@ -1,36 +1,64 @@
 const fs = require('fs')
 require('dotenv').config();
 const nodemailer = require("nodemailer")
+const fetch = require('node-fetch')
 
-exports.send = async (req, res) => {
+const SendEmail = require('../../helpers/email')
 
-    let email = req.body.email
-  
-    const nodemailer = require('nodemailer');
-    const log = console.log;
-  
-    // Step 1
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL, // gmail account
-            pass: process.env.PASSWORD // gmail password
+//hasura cRud
+function fetchGraphQL(operationsDoc, operationName, variables) {
+    return fetch(
+        "https://covid-plasma.herokuapp.com/v1/graphql",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'x-hasura-admin-secret': process.env.HASURA_SECRET
+            },
+            body: JSON.stringify({
+                query: operationsDoc,
+                variables: variables,
+                operationName: operationName
+            })
         }
-    });
-  
-    // Step 2
-    let mailOptions = {
-        from: process.env.EMAIL, // email sender
-        to: `${email}`, // email receiver
-        subject: 'Plasma SOS',
-        text: 'You\'hv received a plasma request.'
-    };
-  
-    // Step 3
-    transporter.sendMail(mailOptions, (err, data) => {
-        if (err) {
-            return res.status(400).send(err);
+    ).then((result) => result.json());
+}
+
+function fetchGetDonorEmail(_eq, operationsDoc) {
+    return fetchGraphQL(
+        operationsDoc,
+        "GetDonorEmail",
+        { "_eq": _eq }
+    );
+}
+
+
+exports.email = async (req, res) => {
+
+    let _eq = req.body._eq
+
+    const operationsDoc = `
+        query GetDonorEmail($_eq: Int!) {
+            users(where: {id: {_eq: $_eq}}) {
+                email
+                name
+            }
         }
-        return res.status(200).send("Email sent!");
-    });
-  }
+    `
+
+    fetchGetDonorEmail(_eq, operationsDoc)
+        .then(({ data, errors }) => {
+            if (errors) {
+                // handle those errors like a pro
+                res.status(400).send(errors)
+            }
+            // do something great with this precious data
+            // res.status(400).send(data.users[0])
+            SendEmail.send(data.users[0].email,data.users[0].name, req , res)
+        })
+        .catch((error) => {
+            // handle errors from fetch itself
+            res.status(400).send(error)
+        });
+
+}
