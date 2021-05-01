@@ -24,12 +24,16 @@ exports.createPlasmaDonor = async (req, res, next) => {
 }
 
 exports.findAllPlasmaDonors = async (req, res, next) => {
-    var state = req.body.state
-    var id = req.params.id
-    var pincode = req.body.pincode
-    var district = req.body.district
-    var name = req.body.name
+    // var state = req.body.state
+    // var id = req.params.id
+    // var pincode = req.body.pincode
+    // var district = req.body.district
+    // var name = req.body.name
     
-    var findParameter = plasmaHelper.assembleFindParameter(state, id, pincode, district, name)
-    plasmaToDB.find(req, res, findParameter)
+    // var findParameter = plasmaHelper.assembleFindParameter(state, id, pincode, district, name)
+    // plasmaToDB.find(req, res, findParameter)
+    var blood = req.body.blood
+    var state = req.body.state
+    // Add authentication
+    plasmaToDB.search(res, blood, state)
 }
