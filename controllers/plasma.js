@@ -34,6 +34,10 @@ exports.findAllPlasmaDonors = async (req, res, next) => {
     // plasmaToDB.find(req, res, findParameter)
     var blood = req.body.blood
     var state = req.body.state
+
+    if(blood == null || blood == undefined || blood.length == 0) {
+        blood = ['O+ve', 'A+ve', 'B+ve', 'AB+ve', 'O-ve', 'A-ve', 'B-ve', 'AB-ve']
+    }
     // Add authentication
     plasmaToDB.search(res, blood, state)
 }
