@@ -66,44 +66,58 @@ exports.requestEmail = async (req, res) => {
 
 exports.statusEmail = async (req, res) => {
     // console.log(req.body)
+    let request = req.body.event.data
+    var operationsDoc
+    let _eq = request.new.donor_id
+    if(request.new.status == "accepted") {
 
-    let _eq = req.body.event.data.new.donor_id
-
-    const operationsDoc = `
-        query GetDonorEmail($_eq: Int!) {
-            users(where: {id: {_eq: $_eq}}) {
-                blood_group
-                district
-                email
-                email_count
-                id
-                name
-                phone
-                picture
-                pin_code
-                recovered_on
-                social_link
-                social_type
-                state
-                status
-                user_id
+        // console.log(req.body.event.data)
+        // console.log(_eq)
+        operationsDoc = `
+            query GetDonorEmail($_eq: Int!) {
+                users(where: {id: {_eq: $_eq}}) {
+                    blood_group
+                    district
+                    email
+                    email_count
+                    id
+                    name
+                    phone
+                    picture
+                    pin_code
+                    recovered_on
+                    social_link
+                    social_type
+                    state
+                    status
+                    user_id
+                }
             }
-        }
-    `
-
-    fetchGetDonorEmail(_eq, operationsDoc)
-        .then(({ data, errors }) => {
-            if (errors) {
-                // handle those errors like a pro
-                res.status(400).send(errors)
+        `
+    } else {
+        operationsDoc = `
+            query GetDonorEmail($_eq: Int!) {
+                users(where: {id: {_eq: $_eq}}) {
+                    name
+                }
             }
-            // do something great with this precious data
-            // res.status(400).send(data.users[0])
-            SendEmail.sendStatus(data.users[0], req , res)
-        })
-        .catch((error) => {
-            // handle errors from fetch itself
-            res.status(400).send(error)
-        });
+        `
+    }
+
+        fetchGetDonorEmail(_eq, operationsDoc)
+            .then(({ data, errors }) => {
+                if (errors) {
+                    // handle those errors like a pro
+                    console.log(errors)
+                    res.status(400).send(errors)
+                }
+                // do something great with this precious data
+                // res.status(400).send(data.users[0])
+                SendEmail.sendStatus(request.new.req_email, data.users[0], req , res, request.new.status)
+            })
+            .catch((error) => {
+                // handle errors from fetch itself
+                res.status(400).send(error)
+            });
 
 }
