@@ -12,14 +12,17 @@ exports.send = async function(email, name, req, res) {
         }
     });
 
+    var msg = req.body.event.data.new
+    
     // composing email
     body = `<p>Hi ${name},<br>You\'ve received a plasma request.<br><br>
-    Requester Name: ${req.body.reqName}<br>
-    Requester email: ${req.body.reqEmail}<br>
-    Requester Phone number: ${req.body.phone}<br>
-    Patient Blood Group: ${req.body.reqBlood}<br>`
-    if(req.body.message) {
-        body = body + `Custom Message: ${req.body.message}<br>`
+    Requester Name: ${msg.req_name}<br>
+    Requester email: ${msg.req_email}<br>
+    Requester Phone number: ${msg.req_phone}<br>
+    Patient Blood Group: ${msg.req_blood_group}<br>
+    Patient admitted in: ${msg.req_hospital}<br>`
+    if(msg.req_message) {
+        body = body + `Custom Message: ${msg.req_message}<br>`
     }
     body = body + `<br>Please connect with this person soon.<br>
                     Have a nice day!</p>`

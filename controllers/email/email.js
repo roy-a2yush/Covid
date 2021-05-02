@@ -34,8 +34,9 @@ function fetchGetDonorEmail(_eq, operationsDoc) {
 
 
 exports.email = async (req, res) => {
+    // console.log(req.body)
 
-    let _eq = req.body._eq
+    let _eq = req.body.event.data.new.donor_id
 
     const operationsDoc = `
         query GetDonorEmail($_eq: Int!) {
