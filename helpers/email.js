@@ -1,6 +1,7 @@
 const fs = require('fs')
 require('dotenv').config();
 const nodemailer = require("nodemailer")
+const EmailUpdater = require('./updateEmailCount')
 
 exports.send = async function(email, name, req, res) {
     // configuring
@@ -37,6 +38,7 @@ exports.send = async function(email, name, req, res) {
         if (err) {
             return res.status(400).send(err);
         }
+        EmailUpdater.updateCount(email)
         return res.status(200).send("Email sent!");
     });
 }
