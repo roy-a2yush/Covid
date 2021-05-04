@@ -25,8 +25,8 @@ exports.sendRequest = async function(email, name, req, res) {
     if(msg.req_message) {
         body = body + `<strong>Custom Message:</strong> ${msg.req_message}<br>`
     }
-    acceptLink = `${process.env.WEBSITE}`+'/'+`${msg.id}`+'/accepted'
-    rejectLink = `${process.env.WEBSITE}`+'/'+`${msg.id}`+'/rejected'
+    acceptLink = `${process.env.WEBSITE}`+'/status/'+`${msg.id}`+'/accepted'
+    rejectLink = `${process.env.WEBSITE}`+'/status/'+`${msg.id}`+'/rejected'
     body = body + `<br>Please connect with this person soon.<br><br>
                     You could also choose one of the below options.<br>
                     <strong>*NOTE:</strong> choosing to accept will send your contact details(the one you mentioned during sign up) to the requester<br><br>
