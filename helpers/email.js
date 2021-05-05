@@ -31,7 +31,7 @@ exports.sendRequest = async function(email, name, req, res) {
                     You could also choose one of the below options.<br>
                     <strong>*NOTE:</strong> choosing to accept will send your contact details(the one you mentioned during sign up) to the requester<br><br>
                     <a href='${acceptLink}' style="margin-right: 1rem">ACCEPT</a>
-                    <a href='${acceptLink}' style="margin-left: 1rem">REJECT</a><br><br>
+                    <a href='${rejectLink}' style="margin-left: 1rem">REJECT</a><br><br>
                     Have a nice day!</p>`
 
 
