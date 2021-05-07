@@ -53,10 +53,65 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
     if (errors) {
       // handle those errors like a pro
       // res.render(__dirname+'error')
-      res.status(400).send(errors)
+      res.status(400).send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>plasma19india</title>
+      </head>
+      <body>
+          <center>
+              <h1>OOPS! Something went wrong</h1>
+              <br>
+              <br>
+              <h2>Please share our site with more people for more plasma donors to join us.</h2><br><br>
+              <a href="https://www.plasma19india.org">Visit plasma19india</a>
+          </center>
+      </body>
+      </html>`)
     }
   
     // do something great with this precious data
     // res.render('success')
-    res.status(200).send(data)
+    if(data.update_requests.affected_rows == 0) {
+      res.status(400).send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>plasma19india</title>
+      </head>
+      <body>
+          <center>
+              <h1>OOPS! Something went wrong</h1>
+              <br>
+              <br>
+              <h2>Please share our site with more people for more plasma donors to join us.</h2><br><br>
+              <a href="https://www.plasma19india.org">Visit plasma19india</a>
+          </center>
+      </body>
+      </html>`)
+    } else {
+      res.status(200).send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>plasma19india</title>
+      </head>
+      <body>
+          <center>
+              <h3>Thanks for your communication!</h3>
+              <br>
+              <br>
+              <h5>Please share our site with more people for more plasma donors to join us.</h5><br><br>
+              <a href="https://www.plasma19india.org">Visit plasma19india</a>
+          </center>
+      </body>
+      </html>`)
+    }
   }

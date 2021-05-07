@@ -20,8 +20,12 @@ exports.sendRequest = async function(email, name, req, res) {
     <strong>Requester Name:</strong> ${msg.req_name}<br>
     <strong>Requester email:</strong> ${msg.req_email}<br>
     <strong>Requester Phone number:</strong> ${msg.req_phone}<br>
+    <strong>Requester State:</strong> ${msg.req_hospital_state}<br>
+    <strong>Requester District:</strong> ${msg.req_hospital_district}<br>
+    <strong>Requester Pin-code:</strong> ${msg.req_hospital_pin_code}<br>
     <strong>Patient Blood Group:</strong> ${msg.req_blood_group}<br>
-    <strong>Patient admitted in:</strong> ${msg.req_hospital}<br>`
+    <strong>Patient admitted in:</strong> ${msg.req_hospital}<br>
+    <strong>Hospital address:</strong> ${msg.req_hospital_address}<br>`
     if(msg.req_message) {
         body = body + `<strong>Custom Message:</strong> ${msg.req_message}<br>`
     }

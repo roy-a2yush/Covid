@@ -9,7 +9,7 @@ const app = express()
 
 app.use(express.json());
 
-const PORT = process.env.PORT || 6000
+const PORT = process.env.PORT || 4000
 
 app.set('view engine', 'ejs');
 
