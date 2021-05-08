@@ -84,26 +84,27 @@ exports.sendStatus = async function(email, user, req, res, status) {
         <strong>Donor Recovered / Vaccinated on:</strong> ${user.recovered_on}<br>
         <br>Please connect with this person soon.<br><br>
         Have a nice day!</p>`
-    } else {
-        body = `<p>Hi,<br>
-        We are terribly sorry to inform you that Donor ${user.name} has rejected your plasma request status.<br>
-        You could visit our side ${process.env.WEBSITE} to search for more donors<br>
-        Sit tight!</p>`
+    // } else {
+    //     body = `<p>Hi,<br>
+    //     We are terribly sorry to inform you that Donor ${user.name} has rejected your plasma request status.<br>
+    //     You could visit our side ${process.env.WEBSITE} to search for more donors<br>
+    //     Sit tight!</p>`
+    // }
+
+
+        let mailOptions = {
+            from: process.env.EMAIL, // email sender
+            to: `${email}`, // email receiver
+            subject: 'SOS: Plasma Donor Reply',
+            html: body
+        };
+
+        // Sending email
+        transporter.sendMail(mailOptions, (err, data) => {
+            if (err) {
+                return res.status(400).send(err);
+            }
+            return res.status(200).send("Email sent!");
+        });
     }
-
-
-    let mailOptions = {
-        from: process.env.EMAIL, // email sender
-        to: `${email}`, // email receiver
-        subject: 'SOS: Plasma Donor Reply',
-        html: body
-    };
-
-    // Sending email
-    transporter.sendMail(mailOptions, (err, data) => {
-        if (err) {
-            return res.status(400).send(err);
-        }
-        return res.status(200).send("Email sent!");
-    });
 }
